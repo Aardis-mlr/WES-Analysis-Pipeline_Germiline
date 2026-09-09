@@ -1,3 +1,4 @@
+#Examples
 SampleID,R1,R2
 UCI_MLR_001,data/raw_fastq/UCI_MLR_001_R1.fastq.gz,data/raw_fastq/UCI_MLR_001_R2.fastq.gz
 UCI_MLR_002,data/raw_fastq/UCI_MLR_002_R1.fastq.gz,data/raw_fastq/UCI_MLR_002_R2.fastq.gz
