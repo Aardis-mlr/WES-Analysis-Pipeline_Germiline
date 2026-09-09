@@ -1,0 +1,59 @@
+name: uganda_wes
+
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+
+dependencies:
+  # Core
+  - python=3.11
+  - pip
+
+  # QC
+  - fastqc
+  - multiqc
+  - fastp
+
+  # Alignment
+  - bwa
+  - samtools
+  - bedtools
+
+  # BAM Processing
+  - picard
+  - gatk4
+
+  # Variant Processing
+  - bcftools
+  - vcftools
+  - htslib
+  - tabix
+
+  # Annotation
+  - ensembl-vep
+
+  # Utilities
+  - parallel
+  - pigz
+  - wget
+  - curl
+  - unzip
+
+  # Python
+  - pandas
+  - numpy
+  - scipy
+  - matplotlib
+  - plotly
+  - jupyterlab
+  - pyyaml
+  - biopython
+
+  # R
+  - r-base
+  - r-tidyverse
+  - r-data.table
+  - r-optparse
+  - r-pheatmap
+  - r-ggrepel

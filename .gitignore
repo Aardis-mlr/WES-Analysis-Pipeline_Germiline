@@ -1,0 +1,66 @@
+# ==============================
+# Local / environment files
+# ==============================
+environment_report.txt
+wget-log
+slurm-*.out
+*.save
+
+# ==============================
+# Sequencing data
+# ==============================
+data/
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+
+# ==============================
+# Pipeline outputs
+# ==============================
+results/
+logs/
+reports/
+tmp/
+benchmark/
+
+*.bam
+*.bai
+*.cram
+*.crai
+*.vcf
+*.vcf.gz
+*.vcf.gz.tbi
+*.g.vcf.gz
+*.g.vcf.gz.tbi
+
+# ==============================
+# Reference genomes / resources
+# ==============================
+resources/
+*.fa
+*.fasta
+*.fai
+*.dict
+*.amb
+*.ann
+*.bwt
+*.pac
+*.sa
+
+# ==============================
+# Installed software / third-party tools
+# ==============================
+tools/
+
+# ==============================
+# Temporary / system files
+# ==============================
+*.tmp
+*.log
+*.err
+*.out
+*.swp
+.DS_Store
+__pycache__/
+*.pyc

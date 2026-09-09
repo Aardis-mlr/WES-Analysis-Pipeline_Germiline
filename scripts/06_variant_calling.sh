@@ -1,0 +1,82 @@
+#!/bin/bash
+#SBATCH --job-name=haplotypecaller
+#SBATCH --output=logs/06_hc_%j.out
+#SBATCH --error=logs/06_hc_%j.err
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=32G
+#SBATCH --time=infinite
+
+# ============================================================
+# 06_variant_calling.sh
+# Runs GATK HaplotypeCaller in GVCF mode on recalibrated BAMs
+# (from step 05), producing one GVCF per sample for later
+# joint genotyping.
+#
+# If data/reference/target_regions.bed exists, calling is
+# restricted to it (recommended for exome data). Otherwise
+# falls back to genome-wide calling with a warning.
+#
+# Run from project root: sbatch scripts/06_variant_calling.sh
+# ============================================================
+
+set -euo pipefail
+
+PROJECT=$(pwd)
+BAM_DIR=${PROJECT}/results/bam
+GVCF_DIR=${PROJECT}/results/gvcf
+REF=${PROJECT}/data/reference/Homo_sapiens_assembly38.fasta
+TARGET_BED=${PROJECT}/data/reference/target_regions.bed
+SAMPLES_CSV=${PROJECT}/config/samples.csv
+THREADS=8
+
+mkdir -p "${GVCF_DIR}" "${PROJECT}/logs" "${PROJECT}/tmp"
+
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate uganda_wes
+
+if [ ! -s "${SAMPLES_CSV}" ]; then
+    echo "ERROR: ${SAMPLES_CSV} not found or empty."
+    exit 1
+fi
+
+# Determine whether to restrict to a target BED
+INTERVAL_ARGS=()
+if [ -s "${TARGET_BED}" ]; then
+    echo "=== $(date) : Target BED found at ${TARGET_BED} — restricting calling to on-target regions ==="
+    INTERVAL_ARGS=(-L "${TARGET_BED}" -ip 100)
+else
+    echo "=== $(date) : WARNING: No target BED found at ${TARGET_BED} ==="
+    echo "Proceeding with GENOME-WIDE calling. This is slower and less precise for exome data."
+    echo "Once the capture kit is confirmed, place its BED file at ${TARGET_BED} and rerun this step."
+fi
+
+tail -n +2 "${SAMPLES_CSV}" | while IFS=',' read -r SAMPLE_ID R1 R2; do
+
+    [ -z "${SAMPLE_ID}" ] && continue
+
+    BAM_IN="${BAM_DIR}/${SAMPLE_ID}.recal.bam"
+    GVCF_OUT="${GVCF_DIR}/${SAMPLE_ID}.g.vcf.gz"
+
+    echo "=== $(date) : Processing sample ${SAMPLE_ID} ==="
+
+    if [ ! -s "${BAM_IN}" ]; then
+        echo "ERROR: Missing recalibrated BAM for ${SAMPLE_ID} (${BAM_IN}). Skipping."
+        echo "Check that step 05 (bqsr) completed for this sample."
+        continue
+    fi
+
+    echo "--- $(date) : HaplotypeCaller GVCF mode (${SAMPLE_ID}) ---"
+    gatk --java-options "-Xmx28g" HaplotypeCaller \
+        -I "${BAM_IN}" \
+        -R "${REF}" \
+        -O "${GVCF_OUT}" \
+        -ERC GVCF \
+        --native-pair-hmm-threads "${THREADS}" \
+        --tmp-dir "${PROJECT}/tmp" \
+        "${INTERVAL_ARGS[@]}"
+
+    echo "=== $(date) : Finished ${SAMPLE_ID} ==="
+
+done
+
+echo "=== $(date) : DONE. Per-sample GVCF calling complete. ==="

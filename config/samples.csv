@@ -1,0 +1,10 @@
+SampleID,R1,R2
+UCI_MLR_001,data/raw_fastq/UCI_MLR_001_R1.fastq.gz,data/raw_fastq/UCI_MLR_001_R2.fastq.gz
+UCI_MLR_002,data/raw_fastq/UCI_MLR_002_R1.fastq.gz,data/raw_fastq/UCI_MLR_002_R2.fastq.gz
+UCI_MLR_003,data/raw_fastq/UCI_MLR_003_R1.fastq.gz,data/raw_fastq/UCI_MLR_003_R2.fastq.gz
+UCI_MLR_004,data/raw_fastq/UCI_MLR_004_R1.fastq.gz,data/raw_fastq/UCI_MLR_004_R2.fastq.gz
+UCI_MLR_005,data/raw_fastq/UCI_MLR_005_R1.fastq.gz,data/raw_fastq/UCI_MLR_005_R2.fastq.gz
+UCI_MLR_006,data/raw_fastq/UCI_MLR_006_R1.fastq.gz,data/raw_fastq/UCI_MLR_006_R2.fastq.gz
+UCI_MLR_007,data/raw_fastq/UCI_MLR_007_R1.fastq.gz,data/raw_fastq/UCI_MLR_007_R2.fastq.gz
+UCI_MLR_008,data/raw_fastq/UCI_MLR_008_R1.fastq.gz,data/raw_fastq/UCI_MLR_008_R2.fastq.gz
+UCI_MLR_009,data/raw_fastq/UCI_MLR_009_R1.fastq.gz,data/raw_fastq/UCI_MLR_009_R2.fastq.gz

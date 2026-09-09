@@ -1,0 +1,44 @@
+# ============================================================
+# Uganda_WES Project Configuration
+# ============================================================
+
+project:
+  name: Uganda_WES
+  version: 1.0
+
+reference:
+  genome: GRCh38
+  fasta: data/reference/Homo_sapiens_assembly38.fasta
+  bwa_index: data/reference/Homo_sapiens_assembly38.fasta
+
+known_sites:
+  dbsnp: data/known_sites/dbsnp.vcf.gz
+  mills: data/known_sites/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
+  phase1: data/known_sites/1000G_phase1.snps.high_confidence.hg38.vcf.gz
+
+annotation:
+  clinvar: resources/clinvar.vcf.gz
+  vep_cache: resources/vep_cache
+
+# Optional: output directories (if your pipeline uses these)
+output:
+  fastqc: results/fastqc
+  multiqc: results/multiqc
+  trimmed: results/trimmed
+  alignment: results/alignment
+  bam: results/bam
+  metrics: results/metrics
+  gvcf: results/gvcf
+  vcf: results/vcf
+  filtered_vcf: results/filtered_vcf
+  annotation: results/annotation
+  acmg: results/acmg
+  population: results/population
+  figures: results/figures
+  tables: results/tables
+
+threads: 16
+memory: 64G
+platform: illumina
+
+samples: config/samples.csv
