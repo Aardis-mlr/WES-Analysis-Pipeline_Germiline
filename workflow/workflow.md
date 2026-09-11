@@ -1,4 +1,4 @@
-# Pipeline Workflow
+# Pipeline Workflow [HPC - Version 1]
 
 Full sequence, step by step. Each script is idempotent-ish (safe to
 rerun) and checks for its required input before starting, failing
